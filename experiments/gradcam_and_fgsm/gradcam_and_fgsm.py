@@ -86,7 +86,7 @@ def main():
     ap.add_argument("--klass", dest="target_class", type=int, default=None,
                     help="explain this class instead of the predicted one")
     ap.add_argument("--cpu", action="store_true", help="force CPU")
-    ap.add_argument("--stepwise", action="store_true", help="apply FGSM 100 times")
+    ap.add_argument("--stepwise", action="store_true", help="apply FGSM in 100 steps of eps/100")
     args = ap.parse_args()
 
     device = torch.device("cpu" if args.cpu or not torch.cuda.is_available() else "cuda")
@@ -147,7 +147,7 @@ def main():
             if args.stepwise:
                 adv = x
                 for i in range(100):
-                    adv = fgsm_attack(model, adv, int(label), eps)
+                    adv = fgsm_attack(model, adv, int(label), eps/100)
             else:
                 adv = fgsm_attack(model, x, int(label), eps)
 
