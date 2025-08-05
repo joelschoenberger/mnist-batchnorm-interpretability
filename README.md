@@ -65,13 +65,13 @@ pip install -r requirements.txt
 To reproduce the above image, use (this, depending on your hardware, might be quite time consuming):
 
 ```bash
-python3 -m experiments.batch_norm.run_bn_statistic --runs 50 --epochs 14
+python3 -m experiments.bn_speed.run_bn_statistic --runs 50 --epochs 14
 ```
 
 For a fast training variant, to produce trained models for the Grad-Cam and FGSM part of this project, you can instead use:
 
 ```bash
-python3 -m experiments.batch_norm.run_bn_statistic --runs 1 --epochs 5
+python3 -m experiments.bn_speed.run_bn_statistic --runs 1 --epochs 5
 ```
 
 These are the implemented command line parameters:
@@ -113,23 +113,23 @@ These are the implemented command-line parameters for **`gradcam_and_fgsm.py`**:
 │   └── train_utils.py        # Training utilities and helper functions
 │
 └── experiments/
-    ├── batch_norm/
+    ├── bn_speed/
     │   ├── run_bn_statistic.py       # Runs BatchNorm experiments
-    │   ├── cnn_base.pt               # Trained CNN without BatchNorm
-    │   ├── cnn_bn.pt                 # Trained CNN with BatchNorm
     │   └── accuracy_compare_50runs.png # BatchNorm accuracy comparison
     │
     └── gradcam_and_fgsm/
         ├── gradcam_and_fgsm.py       # Grad-CAM visualizations on FGSM examples
-        └── gradcam_and_fgsm.png      # Visualization results
+        └── heatmaps
+            └── gradcam_and_fgsm.png      # Visualization results
 ```
+trained weights are saved in `experiments/bn_speed/`
 
 ---
+## References & Acknowledgements
 
-## References
+- **Grad-CAM:** Selvaraju et al., “Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization” ([paper](https://arxiv.org/abs/1610.02391))
+- **FGSM:** Goodfellow et al., “Explaining and Harnessing Adversarial Examples” ([paper](https://arxiv.org/abs/1412.6572))
+- **Batch Normalization:** Ioffe & Szegedy, “Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift” ([paper](https://arxiv.org/abs/1502.03167))
+- **Training-loop scaffolding:** Adapted from the open-source [PyTorch examples](https://github.com/pytorch/examples) repository (BSD-3-Clause)
 
-- **Grad-CAM:** Selvaraju et al., "Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization" ([paper](https://arxiv.org/abs/1610.02391))
-    
-- **FGSM:** Goodfellow et al., "Explaining and Harnessing Adversarial Examples" ([paper](https://arxiv.org/abs/1412.6572))
-    
-- **Batch Normalization:** Ioffe & Szegedy, "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift" ([paper](https://arxiv.org/abs/1502.03167))
+
